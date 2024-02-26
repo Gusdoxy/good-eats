@@ -1,4 +1,7 @@
 import os
+import msvcrt
+
+
 
 def exit_program():
     os.system('cls')
@@ -7,43 +10,67 @@ def exit_program():
 def initialize_option(option_choosed):
     match option_choosed:
       case 1:
-       if input("Você escolheu Listar Restaurante, confirma?\n") in ['s','S']:
+       if input("You have choosed to register a Restaurant, confirm?\n").lower in ['y','yes']:
         print('bele')
        else:
-        initialize_option(int(input('Escolha a sua opção')))
+        initialize_option(int(input('Choose your option: ')))
       case 2:
-       if input("Você escolheu Listar Restaurante, confirma?\n") in ['s','S']:
+       if input("You have choosed to list all Restaurants, confirm?\n").lower in ['y','yes']:
         print('bele')
        else:
-        initialize_option(int(input('Escolha a sua opção')))
+        initialize_option(int(input('Choose your option: ')))
       case 3:
-       if input("Você escolheu Ativar Restaurante, confirma?\n") in ['s','S']: 
+       if input("You have choosed to activate a Restaurant, confirm?\n") in ['y','yes']: 
         print('beleza')
        else:
-        initialize_option(int(input('Escolha a sua opção:')))
-      case "":
-       if input("Você escolheu Sair, confirma?\n") in ['s','S']:
+        initialize_option(int(input('Choose your option: ')))
+      case 4:
+       if input("You have choosed to exit, confirm?\n") in ['s','S']:
         exit_program()
        else: 
-        initialize_option(int(input('Escolha sua opção: ')))
+        initialize_option(int(input('Choose your option: ')))
+      case _:
+        popup_error()
 
-if __name__ == __main__
+def popup_error():
+  print("Invalid option")
+  print("Press any key to restart the program")
+  msvcrt.getch()
+  os.system('cls')
+  main()
 
-print("""
-█████████████████████████████████████████████████
-█─▄▄▄▄█─▄▄─█─▄▄─█▄─▄▄▀███▄─▄▄─██▀▄─██─▄─▄─█─▄▄▄▄█
-█─██▄─█─██─█─██─██─██─████─▄█▀██─▀─████─███▄▄▄▄─█
-▀▄▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▀▀▀▄▄▄▄▄▀▄▄▀▄▄▀▀▄▄▄▀▀▄▄▄▄▄▀ 
+
+def app_name():
+  print("""
+ █████████████████████████████████████████████████
+ █─▄▄▄▄█─▄▄─█─▄▄─█▄─▄▄▀███▄─▄▄─██▀▄─██─▄─▄─█─▄▄▄▄█
+ █─██▄─█─██─█─██─██─██─████─▄█▀██─▀─████─███▄▄▄▄─█
+ ▀▄▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▀▀▀▄▄▄▄▄▀▄▄▀▄▄▀▀▄▄▄▀▀▄▄▄▄▄▀ 
       """)
 
-print('Escolha o que deseja fazer')
-print('1 - Cadastrar Restaurante')
-print('2 - Listar Restaurante')
-print('3 - Ativar Restaurante')
-print('4 - Sair\n')
+def menu_navigation(): 
+ print('Choose a option')
+ print('1 - Register a Restaurant')
+ print('2 - List all Restaurant')
+ print('3 - Activate Restaurant')
+ print('4 - Exit\n')
+ try: 
+  option_choosed = int(input('Choose your option: '))
+  print(f'Your option: {option_choosed}')
+  return option_choosed
+ except:
+   popup_error()
 
-option_choosed = int(input('Escolha sua opção: '))
-print(f'Sua opção: {option_choosed}')
 
 
-initialize_option(option_choosed)
+
+def main():
+  os.system('cls')
+  app_name()
+  option_chosen = menu_navigation()
+  initialize_option(option_chosen)
+
+
+if __name__ == '__main__':
+  main()
+       
