@@ -10,22 +10,22 @@ def exit_program():
 def initialize_option(option_choosed):
     match option_choosed:
       case 1:
-       if input("You have choosed to register a Restaurant, confirm?\n").lower in ['y','yes']:
+       if input("You have choosed to register a Restaurant, confirm?\n").lower() in ['y','yes']:
         print('bele')
        else:
         initialize_option(int(input('Choose your option: ')))
       case 2:
-       if input("You have choosed to list all Restaurants, confirm?\n").lower in ['y','yes']:
+       if input("You have choosed to list all Restaurants, confirm?\n").lower() in ['y','yes']:
         print('bele')
        else:
         initialize_option(int(input('Choose your option: ')))
       case 3:
-       if input("You have choosed to activate a Restaurant, confirm?\n") in ['y','yes']: 
+       if input("You have choosed to activate a Restaurant, confirm?\n").lower() in ['y','yes']: 
         print('beleza')
        else:
         initialize_option(int(input('Choose your option: ')))
       case 4:
-       if input("You have choosed to exit, confirm?\n") in ['s','S']:
+       if input("You have choosed to exit, confirm?\n").lower() in ['y','yes']:
         exit_program()
        else: 
         initialize_option(int(input('Choose your option: ')))
