@@ -1,18 +1,28 @@
 import os
+import sys
 import msvcrt
 import database
+
+def app_name():
+  print("""
+ █████████████████████████████████████████████████
+ █─▄▄▄▄█─▄▄─█─▄▄─█▄─▄▄▀███▄─▄▄─██▀▄─██─▄─▄─█─▄▄▄▄█
+ █─██▄─█─██─█─██─██─██─████─▄█▀██─▀─████─███▄▄▄▄─█
+ ▀▄▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▀▀▀▄▄▄▄▄▀▄▄▀▄▄▀▀▄▄▄▀▀▄▄▄▄▄▀
+      """)
+  
 
 def exit_program():
     os.system('cls')
     print('Thank You for using our services')
     print('Shutting down the programn...')
-    os.system('exit')
+    sys.exit()
 
 def register_restaurant():
   os.system('cls')
   new_restaurant = input('Type the name of the restaurant: ')
-  new_res_category = input('Type the category of the restaurant: ')
-  database.restaurants.append({f"name": new_restaurant,"category": new_res_category, "active": True })
+  new_res_category = input(f'Type the category of the {new_restaurant}: ')
+  database.restaurants.append({"name": new_restaurant,"category": new_res_category, "active": True })
   print(f'Your restaurant called {new_restaurant} has been registered')
   print("Press any key to return to the menu")
   msvcrt.getch()
@@ -25,14 +35,37 @@ def list_restaurant():
     count += 1
     restaurant_name = restaurant['name']
     restaurant_category = restaurant['category']
-    print(f'{count} - {restaurant_name} | {restaurant_category}')
+    restaurant_active = restaurant['active']
+    print(f'{count}° {restaurant_name} | {restaurant_category} | {restaurant_active}')
   print("Press any key to return to the menu")
   msvcrt.getch()
   main()  
 
 
-# def confirmation(num):
-  
+def change_state():
+  restaurant_name = input('Which restaurant do you want to activate/deactivate?')
+  found_restaurant = False
+  for restaurant in database.restaurants:
+    if restaurant_name == restaurant['name']:
+      found_restaurant = True
+      restaurant['active'] = not restaurant['active']
+      if restaurant['active']:
+       restaurant['active'] = "Activated"
+       print(f'The Restaurant {restaurant_name} has been activated')
+       print("Press any key to return to the menu")
+       msvcrt.getch()
+       main()
+      else:
+       restaurant['active'] = "Deactivated"
+       print(f'The Restaurant {restaurant_name} has been deactivated')
+       print("Press any key to return to the menu")
+       msvcrt.getch()
+       main()
+  if not found_restaurant:
+    print(f'The Restaurant {restaurant_name} has not been found')
+    print("Press any key to return to the menu")
+    msvcrt.getch()
+    main()
 
 def initialize_option(option_choosed):
     match option_choosed:
@@ -47,8 +80,8 @@ def initialize_option(option_choosed):
        else:
         main()
       case 3:
-       if input("You have choosed to activate a Restaurant, confirm?\n").lower() in ['y','yes']: 
-        print('beleza')
+       if input("You have choosed to activate or deactivate a Restaurant, confirm?\n").lower() in ['y','yes']: 
+         change_state()
        else:
         main()
       case 4:
@@ -67,13 +100,6 @@ def popup_error():
   main()
 
 
-def app_name():
-  print("""
- █████████████████████████████████████████████████
- █─▄▄▄▄█─▄▄─█─▄▄─█▄─▄▄▀███▄─▄▄─██▀▄─██─▄─▄─█─▄▄▄▄█
- █─██▄─█─██─█─██─██─██─████─▄█▀██─▀─████─███▄▄▄▄─█
- ▀▄▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▄▄▄▄▀▀▀▀▄▄▄▄▄▀▄▄▀▄▄▀▀▄▄▄▀▀▄▄▄▄▄▀
-      """)
 
 def menu_navigation(): 
  print('Choose a option')
