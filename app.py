@@ -35,7 +35,7 @@ def list_restaurant():
     count += 1
     restaurant_name = restaurant['name']
     restaurant_category = restaurant['category']
-    restaurant_active = restaurant['active']
+    restaurant_active = 'Activated' if restaurant['active'] == True else 'Deactivated'
     print(f'{count}° {restaurant_name} | {restaurant_category} | {restaurant_active}')
   print("Press any key to return to the menu")
   msvcrt.getch()
@@ -43,20 +43,18 @@ def list_restaurant():
 
 
 def change_state():
-  restaurant_name = input('Which restaurant do you want to activate/deactivate?')
+  restaurant_name = input('Which restaurant do you want to activate/deactivate?\n')
   found_restaurant = False
   for restaurant in database.restaurants:
     if restaurant_name == restaurant['name']:
       found_restaurant = True
       restaurant['active'] = not restaurant['active']
-      if restaurant['active']:
-       restaurant['active'] = "Activated"
+      if restaurant['active'] == True:
        print(f'The Restaurant {restaurant_name} has been activated')
        print("Press any key to return to the menu")
        msvcrt.getch()
        main()
       else:
-       restaurant['active'] = "Deactivated"
        print(f'The Restaurant {restaurant_name} has been deactivated')
        print("Press any key to return to the menu")
        msvcrt.getch()
